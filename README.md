@@ -1,16 +1,63 @@
-# React + Vite
+# My Tasks — Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fast, beautiful, keyboard-first todo app built with **React 19**, **TypeScript**, **Tailwind CSS v4**, and **Rolldown-Vite**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Add tasks** with a category
+- **Drag & drop reordering** (dnd-kit) — reorder in the *All* view
+- **Inline editing** — auto-focus, `Enter` saves, `Esc` cancels, blur commits
+- **Filters & search** — All / Active / Completed with live counts, category chips, full-text search
+- **Undo delete** — every deletion is one tap away from being restored
+- **Keyboard shortcuts** — press `?` in the app for the full list
+- **Dark / light theme** with system-preference detection
+- **Swipe-to-delete** on touch devices
+- **Confetti celebration** when every task is done
+- **localStorage persistence** with robust hydration (legacy data migrates automatically)
+- **Fully accessible** — labelled inputs, `aria-live` regions, keyboard navigation, `prefers-reduced-motion` support
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer | Choice |
+|---|---|
+| UI | React 19 |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS v4 (CSS-first config, `dark:` variant) |
+| Build | Rolldown-Vite 7 |
+| Motion | `motion` |
+| Drag & drop | `@dnd-kit/core` + `@dnd-kit/sortable` |
+| Toasts | `sonner` |
+| Tests | Vitest + React Testing Library + jsdom |
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install       # install dependencies
+npm run dev       # start the dev server
+npm test          # run the test suite
+npm run typecheck # type-check the project
+npm run lint      # lint the project
+npm run build     # production build
+```
+
+## Project Structure
+
+```
+src/
+├── components/   # Presentational components (form, list, items, filters, ...)
+├── context/      # TodoProvider + useTodo (reducer-powered, localStorage-persisted)
+├── hooks/        # useTheme
+├── selectors/    # Pure functions for filtering/selecting todos
+├── store/        # Typed reducer with all todo actions
+├── test/         # Test setup + factories
+├── types/        # Shared domain types + category metadata
+└── utils/        # storage, id generation, todo factory
+```
+
+## Deploy
+
+The app deploys to GitHub Pages under the `/todo` subpath (`base: "/todo"`):
+
+```bash
+npm run deploy    # builds and pushes dist/ to gh-pages
+```
